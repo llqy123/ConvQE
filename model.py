@@ -109,7 +109,7 @@ class ChannelAttention(nn.Module):
         return self.sigmoid(out)
 
 
-class QCNN(LTEModel):
+class QConvE(LTEModel):
     def __init__(self, num_ents, num_rels, params=None):
         super(self.__class__, self).__init__(num_ents, num_rels, params)
 
