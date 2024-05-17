@@ -46,21 +46,21 @@ class LTEModel(nn.Module):
         self.h_ops_dict = nn.ModuleDict({
             'p': nn.Linear(self.p.init_dim, self.p.gcn_dim, bias=False),
             'b': nn.BatchNorm1d(self.p.gcn_dim),
-            'd': nn.Dropout(self.p.hid_drop),
+            'd': nn.Dropout(self.p.Drop1),
             'a': nn.Tanh(),
         })
 
         self.t_ops_dict = nn.ModuleDict({
             'p': nn.Linear(self.p.init_dim, self.p.gcn_dim, bias=False),
             'b': nn.BatchNorm1d(self.p.gcn_dim),
-            'd': nn.Dropout(self.p.hid_drop),
+            'd': nn.Dropout(self.p.Drop1),
             'a': nn.Tanh(),
         })
 
         self.r_ops_dict = nn.ModuleDict({
             'p': nn.Linear(self.p.init_dim, self.p.gcn_dim, bias=False),
             'b': nn.BatchNorm1d(self.p.gcn_dim),
-            'd': nn.Dropout(self.p.hid_drop),
+            'd': nn.Dropout(self.p.Drop1),
             'a': nn.Tanh(),
         })
 
@@ -91,32 +91,13 @@ class LTEModel(nn.Module):
         return x_head, x_tail, r
 
 
-class ChannelAttention(nn.Module):
-    def __init__(self, in_planes, ratio=8):
-        super(ChannelAttention, self).__init__()
-        self.avg_pool = nn.AdaptiveAvgPool2d(1)
-        self.max_pool = nn.AdaptiveMaxPool2d(1)
-
-        self.fc = nn.Sequential(nn.Conv2d(in_planes, in_planes//ratio, 1, bias=False),
-                                nn.ReLU(),
-                                nn.Conv2d(in_planes//ratio, in_planes, 1, bias=False))
-        self.sigmoid = nn.Tanh()
-
-    def forward(self, x):
-        avg_out = self.fc(self.avg_pool(x))
-        max_out = self.fc(self.max_pool(x))
-        out = avg_out + max_out
-        return self.sigmoid(out)
-
-
 class QConvE(LTEModel):
     def __init__(self, num_ents, num_rels, params=None):
         super(self.__class__, self).__init__(num_ents, num_rels, params)
 
         self.bn = torch.nn.BatchNorm1d(self.p.embed_dim)
-        self.hidden_drop = torch.nn.Dropout(self.p.hid_drop)
-        self.hidden_drop2 = torch.nn.Dropout(self.p.conve_hid_drop)
-        self.feature_drop = torch.nn.Dropout(self.p.feat_drop)
+        self.conve_feature_drop = torch.nn.Dropout(self.p.Drop2)
+        self.hidden_layer_drop = torch.nn.Dropout(self.p.Drop3)
 
         self.QuaternionConv = QuaternionConv(4, out_channels=self.p.num_filt,
                                              kernel_size=(self.p.ker_sz, self.p.ker_sz),
@@ -128,10 +109,6 @@ class QConvE(LTEModel):
         flat_sz_w = self.p.k_h - self.p.ker_sz + 1
         self.flat_sz = flat_sz_h * flat_sz_w * self.p.num_filt
         self.fc = torch.nn.Linear(self.flat_sz, self.p.embed_dim)
-        self.Tanh = nn.Tanh()
-        self.conv = QuaternionConv(in_channels=self.p.num_filt, out_channels=self.p.num_filt, kernel_size=1, stride=1,
-                                   padding=0)
-        self.channel_att = ChannelAttention(self.p.num_filt)
 
     def concat(self, e1_embed, rel_embed):
         s_a, x_a, y_a, z_a = torch.chunk(e1_embed, 4, dim=1)
@@ -159,14 +136,12 @@ class QConvE(LTEModel):
         x = q_normalize(stk_inp)
         x = self.QuaternionConv(x)
         x = q_normalize(x)
-        x = self.channel_att(x) * x
-        x = q_normalize(x)
         x = F.relu(x)
-        x = self.feature_drop(x)
+        x = self.conve_feature_drop(x)
 
         x = x.view(-1, self.flat_sz)
         x = self.fc(x)
-        x = self.hidden_drop2(x)
+        x = self.hidden_layer_drop(x)
         x = self.bn(x)
         x = F.relu(x)
 

@@ -293,9 +293,9 @@ if __name__ == '__main__':
     parser.add_argument('--embed_dim', dest='embed_dim', default=None, type=int,
                         help='Embedding dimension to give as input to score function')
 
-    parser.add_argument('--hid_drop', dest='hid_drop', default=0.3, type=float, help='lte-drop')
-    parser.add_argument('--conve_hid_drop', dest='conve_hid_drop', default=0.3, type=float)
-    parser.add_argument('--feat_drop', dest='feat_drop', default=0.2, type=float)
+    parser.add_argument('--Drop1', dest='Drop1', default=0.3, type=float, help='embedding dropout')
+    parser.add_argument('--Drop2', dest='Drop2', default=0.3, type=float, help='convolution feature dropout')
+    parser.add_argument('--Drop3', dest='Drop3', default=0.2, type=float, help='hidden layer dropout')
 
     parser.add_argument('--k_w', dest='k_w', default=20,
                         type=int, help='ConvE: k_w')
