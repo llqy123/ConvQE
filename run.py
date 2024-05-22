@@ -10,7 +10,7 @@ import torch
 from torch.utils.data import DataLoader
 from data.knowledge_graph import load_data
 
-from model import QConvE
+from model import ConvQE
 from utils import process, TrainDataset, TestDataset
 from torch.optim.lr_scheduler import MultiStepLR
 
@@ -30,7 +30,7 @@ class Runner(object):
             self.p.k_h if self.p.embed_dim is None else self.p.embed_dim  # output dim of gnn
         self.data_iter = self.get_data_iter()
 
-        self.model = QConvE(self.num_ent, self.num_rels, params=self.p)
+        self.model = ConvQE(self.num_ent, self.num_rels, params=self.p)
         if self.p.gpu >= 0:
             self.model.to("cuda")
         self.optimizer = torch.optim.Adam(
