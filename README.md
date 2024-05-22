@@ -4,7 +4,6 @@
 To run a model execute the following command :
 
 ```
-hid_drop  feat_drop  conve_hid_drop
 -WN18RR
 python run.py --data WN18RR --epoch 800 --Drop1 0.3 --Drop2 0 --Drop3 0.5 --bias --batch 256 --num_filt 300 --gpu 0 --x_ops "p.b.d" --r_ops "p.b.d" --name WN18RR --temperature 0.001
 
