@@ -91,7 +91,7 @@ class LTEModel(nn.Module):
         return x_head, x_tail, r
 
 
-class QConvE(LTEModel):
+class ConvQE(LTEModel):
     def __init__(self, num_ents, num_rels, params=None):
         super(self.__class__, self).__init__(num_ents, num_rels, params)
 
