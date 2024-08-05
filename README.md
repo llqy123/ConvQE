@@ -9,7 +9,7 @@ Effective Knowledge Graph Embedding with Quaternion Convolutional Networks
     <a href="http://tcci.ccf.org.cn/conference/2024/"><img src="https://img.shields.io/badge/NLPCC-2024-%23bd9f65?labelColor=%2377BBDD&color=3388bb"></a>
 </p>
 
-This repository is the official implementation of ["Effective Knowledge Graph Embedding with Quaternion Convolutional Networks"]() accepted by ECAI 2024.
+This repository is the official implementation of ["Effective Knowledge Graph Embedding with Quaternion Convolutional Networks"]() accepted by NLPCC 2024.
 
 ## Reproduce the Results
 To run a model execute the following command :
@@ -28,4 +28,5 @@ python run.py --data FB15k-237 --epoch 1000 --Drop1 0.3 --Drop2 0.2 --Drop3 0.3 
 python run.py --data FB15k --epoch 1000 --Drop1 0.05 --Drop2 0.5 --Drop3 0 --bias --batch 256 --num_filt 300 --gpu 0 --x_ops "p.b.d" --name FB15k --temperature 0.001 
 
 ```
-
+## 😄 Cite:
+## Please cite our paper if you use the model or this code in your work:
