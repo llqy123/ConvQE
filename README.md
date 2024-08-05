@@ -30,3 +30,6 @@ python run.py --data FB15k --epoch 1000 --Drop1 0.05 --Drop2 0.5 --Drop3 0 --bia
 ```
 ## 😄 Cite:
 ## Please cite our paper if you use the model or this code in your work:
+
+## 🤝 Acknowledgement
+The codes are based on [GCN4KGC](https://github.com/MIRALab-USTC/GCN4KGC) repo.
