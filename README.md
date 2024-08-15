@@ -6,7 +6,7 @@ Effective Knowledge Graph Embedding with Quaternion Convolutional Networks
 <p align="center">
     <img src="https://img.shields.io/badge/version-1.0.1-blue">
     <img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?e&logo=PyTorch&logoColor=white">
-    <a href="http://tcci.ccf.org.cn/conference/2024/"><img src="https://img.shields.io/badge/NLPCC-2024-%23bd9f65?labelColor=%2377BBDD&color=3388bb"></a>
+        <a href="http://tcci.ccf.org.cn/conference/2024/"><img src="https://img.shields.io/badge/NLPCC-2024-%23bd9f65?labelColor=4aaaf1&color=4aaaf1"></a>
 </p>
 
 This repository is the official implementation of ["Effective Knowledge Graph Embedding with Quaternion Convolutional Networks"]() accepted by NLPCC 2024.
