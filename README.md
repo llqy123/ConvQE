@@ -1,1 +1,1 @@
-This repository is the official implementation of ConvQE accepted by NLPCC 2024.
+This repository is the official implementation of [Effective Knowledge Graph Embedding with Quaternion Convolutional Networks](https://link.springer.com/chapter/10.1007/978-981-97-9437-9_15) accepted by NLPCC 2024.
